@@ -1,0 +1,800 @@
+{% load account_staticfiles %}
+{% load extra_tags %}
+{% load honeypot %}
+
+<!doctype html>
+<!--[if !IE]>      <html class="no-js non-ie"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<!-- POWERED BY BENTOBOX | http//getbento.com -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta name="Description" content="{{ account.meta_description }}">
+		<meta name="Keywords" content="{{ account.meta_keywords }}">
+		<meta name="Revisit-After" content="5 Days">
+		<meta name="Distribution" content="Global">
+		<meta name="Rating" content="General">
+		<meta name="Copyright" content="© Dirty French 2014">	  
+
+		<title>{% block title %}{{account.site_title}}{% endblock %}</title>
+
+		<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery-1.11.1.min.js"></script>
+		<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery-migrate-1.2.1.min.js"></script>
+
+		{% block header_script %}{% endblock %}
+
+		<link rel="stylesheet" href="{{ ACCOUNT_STATIC_URL }}font/font.css" />
+		<link rel="stylesheet" href="{{ ACCOUNT_STATIC_URL }}css/style.css" />
+		<link rel="stylesheet" href="{{ ACCOUNT_STATIC_URL }}css/jquery.datepick.css" />
+ 		<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,800' rel='stylesheet' type='text/css'>
+
+		{% if account.ga_code %}
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', '{{ account.ga_code }}']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+		{% endif %}
+	</head>
+
+<body class="{% block body_class %}{% endblock %}" data-goto="">
+	<img src="{{ ACCOUNT_STATIC_URL }}img/dirty-french.png" alt="Dirt French" class="dirt-french-logo hide-mobile" />
+	<section class="landing" id="home">
+		<nav>
+			<div class="header-bar show-mobile">
+				<a href="/" class="mobile-logo"><img src="{{ ACCOUNT_STATIC_URL }}img/mobile-top-logo.png" width="94" height="33" alt="Dirt French" class="block" /></a>
+				<span class="address">{{locations.0.short_name}}</span>
+				<a href="#" class="mobile-nav-button"><img src="{{ ACCOUNT_STATIC_URL }}img/mobile-nav-button.png" width="27" height="19" alt="Dirt French" class="block" /></a>
+			</div>
+			<div class="mobile-nav-wrap">
+				<ul class="top-nav first-half">
+				{% for nav in main_nav_items|slice:":5" %}
+					<li class="nav-{{nav.template_key}} {% if nav.template == current_page %}active{% endif %}{% if nav.template_key == "home" and current_page == "index" %}active{% endif %}">
+						{% if nav.type == "link" %}
+							<a href="{{nav.target}}" target="_blank">{{nav.text|lower}}</a>
+						{% else %}
+							<a href="#{{nav.template_key}}" class="scrollto">{{nav.name|lower}}</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+				</ul>
+				<ul class="top-nav last-half">
+				{% for nav in main_nav_items|slice:"5:" %}
+					<li class="nav-{{nav.template_key}} {% if nav.template == current_page %}active{% endif %}{% if nav.template_key == "home" and current_page == "index" %}active{% endif %}">
+						{% if nav.type == "link" %}
+							<a href="{{nav.target}}" target="_blank">{{nav.text|lower}}</a>
+						{% else %}
+							<a href="#{{nav.template_key}}" class="scrollto">{{nav.name|lower}}</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+					<li class="nav-email-signup">
+						<a href="#email" class="email-signup">mailing list</a>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<div class="address-phone">
+					<div class="address">{{locations.0.short_name}}</div>
+					<div class="phone">{{locations.0.phone_number}}</div>
+				</div>
+				<div class="show-mobile">
+					<a href="http://ludlowhotel.com/" target="_blank"><img src="{{ ACCOUNT_STATIC_URL }}img/ludlow.png" width="122" height="35" alt="THE LUDLOW NEW YORK CITY" class="ludlow-logo" /></a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="landing-padder">		
+			<div class="mobile-dirt-french show-mobile">
+				<img src="{{ ACCOUNT_STATIC_URL }}img/dirty-french-small.png" width="289" height="102" alt="Dirt French" class="block" />
+			</div>
+
+			{% if callouts.0.text %}
+			<div id="home-alert">
+				<div class="left-top"></div>
+				<div class="top"></div>
+				<div class="right-top"></div>
+				<div class="left"></div>
+				<div class="right"></div>
+				<div class="left-bottom"></div>
+				<div class="bottom"></div>
+				<div class="right-bottom"></div>
+				<div class="data-box">
+					<div class="content wysiwyg">{{callouts.0.text|safe}}</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+
+		<a href="http://ludlowhotel.com/" target="_blank"><img src="{{ ACCOUNT_STATIC_URL }}img/ludlow.png" width="122" height="35" alt="THE LUDLOW NEW YORK CITY" class="ludlow-logo hide-mobile" /></a>
+	</section>
+
+	<nav id="left-nav" class="hide-mobile">
+		<div class="background-wrapper">
+			{% if callouts.1.image_path %}
+				<div class="background about" data-image="{{callouts.1.image_url}}"></div>
+			{% endif %}
+			{% if callouts.4.image_path %}
+				<div class="background menus" data-image="{{callouts.4.image_url}}"></div>
+			{% endif %}
+			{% if callouts.10.image_path %}
+				<div class="background lobby-bar" data-image="{{callouts.10.image_url}}"></div>
+			{% endif %}
+			{% if callouts.5.image_path %}
+				<div class="background private-events" data-image="{{callouts.5.image_url}}"></div>
+			{% endif %}
+			{% if callouts.8.image_path %}
+				<div class="background press" data-image="{{callouts.8.image_url}}"></div>
+			{% endif %}
+			{% if callouts.9.image_path %}
+				<div class="background location-contact" data-image="{{callouts.9.image_url}}"></div>
+			{% endif %}
+		</div>
+		<div class="nav-content">
+			<ul class="left-nav">
+			{% for nav in main_nav_items %}
+				<li class="nav-{{nav.template_key}} {% if nav.template == current_page %}active{% endif %}">
+					{% if nav.type == "link" %}
+						<a href="{{nav.target}}" target="_blank">{{nav.text|lower}}</a>
+					{% else %}
+						<a href="#{{nav.template_key}}" class="scrollto">{{nav.name|lower}}</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+				<li class="nav-email-signup">
+					<a href="#email" class="email-signup">mailing list</a>
+				</li>
+			</ul>
+
+			<div class="address-phone">
+				<img src="{{ ACCOUNT_STATIC_URL }}/img/left-nav-decor-top.png" width="135" height="28" />
+				<div class="address">{{locations.0.short_name}}</div>
+				<div class="phone">{{locations.0.phone_number}}</div>
+				<img src="{{ ACCOUNT_STATIC_URL }}/img/left-nav-decor-bottom.png" width="62" height="12" />
+			</div>
+
+			<a href="http://ludlowhotel.com/" target="_blank"><img src="{{ ACCOUNT_STATIC_URL }}img/ludlow.png" width="122" height="35" alt="THE LUDLOW NEW YORK CITY" class="ludlow-logo" /></a>
+		</div>
+	</nav>
+
+<div id="content">
+	<div class="bottom-glow">
+		<a href="http://majorfood.com/" target="_blank" class="majorfood"><img src="{{ ACCOUNT_STATIC_URL }}img/majorfood.png" width="164" height="53" alt="MAJOR FOOD GROUP" /></a>
+	</div>
+
+	<div class="width-wrapper">
+
+		<section id="about">
+			<h1 class="title">{{callouts.1.title}}</h1>
+			<div class="one-of-two bottom-sep">
+				<h3>{{callouts.2.title}}</h3>
+				<div class="wysiwyg">{{callouts.2.text|safe}}</div>
+			</div>
+			<div class="one-of-two bottom-sep last">
+				<h3>{{callouts.3.title}}</h3>
+				<div class="wysiwyg">{{callouts.3.text|safe}}</div>
+			</div>
+			<div class="clear"></div>
+
+			<div class="about-sep">
+				<div class="one-of-two">
+					<div class="content-separator"></div>
+				</div>
+				<div class="one-of-two last">
+					<div class="content-separator"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			<div class="team-wrap">
+				{% for staff_cat in staff_categories %}
+					{% if staff_cat.staff_set.all|length > 0 %}
+					<h3>{{staff_cat.name}}</h3>
+
+					{% for person in staff_cat.staff_set.all %}
+						<div class="person one-of-four {% if forloop.counter|divisibleby:"2" %}col2{% endif %} {% if forloop.counter|divisibleby:"4" %}last{% endif %}">
+							<div class="photo" style="background-image: url('{{ person.image_url }}')">
+								<div class="grayscale" style="background-image: url('{{ person.image_url }}')"></div>
+							</div>
+							<div class="name">{{person.name}}</div>
+							{% if person.title %}<div class="title">{{person.title}}</div>{% endif %}
+							<div class="bio">{{person.bio|safe}}</div>
+						</div>
+					{% endfor %}
+					<div class="clear"><br /></div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</section><!-- about -->
+
+		<section id="menus">
+			<h1 class="title">{{callouts.4.title}}</h1>
+			{% for menu in menus %}
+			<div class="menu">
+				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep-top.png" width="189" height="34" class="block" />
+				<div class="caption-wrap">
+					<div class="caption"><a href="{{menu.menu_image_url}}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
+				</div>
+				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep.png" width="189" height="34" class="block" />
+			</div>
+			{% endfor %}
+			<div class="clear"></div>
+		</section><!-- menus -->
+
+		<section id="lobby-bar">
+			<h1 class="title">{{callouts.10.title}}</h1>
+			<div class="one-of-two">
+				<h3>{{callouts.11.title}}</h3>
+				<div class="wysiwyg">{{callouts.11.text|safe}}</div>
+			</div>
+			<div class="one-of-two last">
+				<h3>{{callouts.12.title}}</h3>
+				<div class="wysiwyg">{{callouts.12.text|safe}}</div>
+			</div>
+			<div class="clear"></div>
+		</section><!-- private events -->
+
+		<section id="private-events">
+			<h1 class="title">{{callouts.5.title}}</h1>
+			<div class="one-of-two">
+				<h3>{{callouts.6.title}}</h3>
+				<div class="wysiwyg">{{callouts.6.text|safe}}</div>
+			</div>
+			<div class="one-of-two last">
+				<h3>{{callouts.7.title}}</h3>
+				<div class="wysiwyg">{{callouts.7.text|safe}}</div>
+			</div>
+			<div class="clear"></div>
+
+			<form action="{% url 'form_to_email' %}" method="post" id="private-events-form">
+				{% csrf_token %}
+				{% render_honeypot_field %}
+
+				<input type="hidden" name="recipient" id="recipient" value="events" />
+				<div class="field first-name clear">
+					<input type="text" name="First Name" id="first_name" required="required" class="form-text" placeholder="First Name*" />
+				</div>
+				<div class="field last-name">
+					<input type="text" name="Last Name" id="last_name" required="required" class="form-text" placeholder="Last Name*" />
+				</div>
+				<div class="field email clear">
+					<input type="email" name="Email" id="email-event" required="required" class="form-text" placeholder="Enter email*" />
+				</div>
+				<div class="field phone-number">
+					<input type="text" name="Phone Number" id="phone_number" required="required" class="form-text" placeholder="Phone Number*" />
+				</div>
+				<div class="field people-count clear">
+					<select name="How Many People" id="people_count" class="dropkick">
+						<option disabled="disabled" selected="selected">About how many people?</option>
+						<option>5</option>
+						<option>10</option>
+					</select>
+				</div>
+				<div class="field event-type">
+					<select name="Event Type" id="event_type" class="dropkick">
+						<option disabled="disabled" selected="selected">Type of Event</option>
+						<option>Event</option>
+					</select>
+				</div>
+				<div class="field clear">
+					<div class="field date clear">
+						<input type="text" name="Date" id="date" class="form-text date-picker" placeholder="Date" />
+					</div>
+					<div class="field time">
+						<select name="Time" id="time" class="dropkick">
+							<option disabled="disabled" selected="selected">Time</option>
+							<option>9am - 12pm</option>
+							<option>12pm - 4pm</option>
+							<option>4pm - 8pm</option>
+							<option>8pm - 11pm</option>
+						</select>
+					</div>
+				</div>
+				<div class="field message">
+					<textarea name="Additional Info" class="form-text" placeholder="Addtional information"></textarea>
+				</div>
+				<div class="field signup clear">
+					<input type="checkbox" name="Sign Up" id="signup" class="form-chkbox" checked="checked" />
+					<label for="signup" class="form-chkbox-label">Sign up for our mailing list</label>
+				</div>
+				<div class="field submit clear">
+					<button type="submit" id="submit_button" class="button">SUBMIT</button>
+				</div>
+				<div class="clear"></div>
+			</form>
+			<div class="thankyou">Thank you for contacting us! Someone will be in touch soon.</div>
+		</section><!-- private events -->
+
+		<section id="press">
+			<h1 class="title">{{callouts.8.title}}</h1>
+			{% for press in press.all %}
+				<div class="press one-of-two {% cycle '' 'last' %}">
+					<a href="{{press.url}}" target="_blank">
+						<span class="image" style="background-image:url('{{ press.thumbnail_url }}')">
+							<span class="grayscale" style="background-image: url('{{ press.thumbnail_url }}')"></span>
+						</span>
+						<span class="title">{{ press.title }}</span>
+					</a>
+					<div class="source">{{press.source}}</div>
+				</div>
+			{% endfor %}
+			<div class="clear"></div>
+		</section><!-- press -->
+
+		<section id="location-contact">
+			<h1 class="title">{{callouts.9.title}}</h1>
+			<div class="one-of-two">
+				<h3>Location</h3>
+				<div class="location-wrap">
+					{{locations.0.address}}<br />
+					{{locations.0.phone_number}}<br />
+					<a href="#contact" style="text-decoration: underline; ">Contact Form</a>
+				</div>
+				<div class="wysiwyg">{{locations.0.display_hours|safe}}</div>
+
+				{% for nav in main_nav_items %}
+					{% if nav.template_key == "reservations" %}
+						<a href="{{nav.target}}" target="_blank" class="button" id="open-table-button">VIA OPEN TABLE</a>
+					{% endif %}
+				{% endfor %}
+
+			</div>
+			<div class="one-of-two last">
+				<img class="block map-img" src="{{locations.0.map_image_url}}" alt="Map" width="372" style="margin-top: 20px;" />
+				<a href="https://maps.google.com/maps?q={{ locations.0.address }}" target="_blank" class="button" id="google-map-button">OPEN IN GOOGLE MAPS</a>
+			</div>
+			<div class="clear"></div>
+			<div id="contact" class="clear">
+				<h3>Contact Form</h3>
+				<form action="{% url 'form_to_email' %}" method="post" id="contact-form">
+					{% csrf_token %}
+					{% render_honeypot_field %}
+
+					<input type="hidden" name="recipient" id="recipient" value="info" />
+					<div class="field full-name clear">
+						<input type="text" name="Full Name" id="full_name" required="required" class="form-text" placeholder="Enter Full Name*" />
+					</div>
+					<div class="field email clear">
+						<input type="email" name="Email" id="email-contact" required="required" class="form-text" placeholder="Enter email*" />
+					</div>
+					<div class="field what-about clear">
+						<select name="What are you getting in touch about" id="what_about" class="dropkick">
+							<option disabled="disabled" selected="selected">What are you getting in touch about</option>
+							<option data-recipient="beth">Press</option>
+							<option data-recipient="contact">Employment</option>
+							<option data-recipient="contact">General</option>
+							<option data-recipient="">Reservations</option>
+						</select>
+					</div>
+					<div class="field message clear">
+						<textarea name="Message" class="form-text" placeholder="Message*" required="required"></textarea>
+					</div>
+					<div class="field submit clear">
+						<button type="submit" id="submit_button" class="button">SUBMIT</button>
+					</div>
+				</form>
+				<div class="thankyou">Thank you for contacting us! Someone will be in touch soon.</div>
+			</div>
+			<div class="clear"></div>
+		</section><!-- location-contact -->
+	</div><!-- width-wrapper -->
+</div><!-- #content -->
+
+<div class="overlay" id="bio-overlay">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20"/></a>
+	<div class="wrapper">
+		<h3>Member Name</h3>
+		<div class="title">Title</div>
+		<div class="bio wysiwyg">Member bio</div>
+	</div>
+</div>
+<div class="overlay" id="signup-overlay">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20"/></a>
+	<div class="wrapper">
+		<form id="signup-form" action="http://email.getbento.com/t/d/s/jkhlhd/" method="post">
+			<h3>Sign Up For News & Events</h3>
+			<p><input type="email" id="signup-email" name="cm-jkhlhd-jkhlhd" class="form-text block" placeholder="Enter Email Address" required="required" /></p>
+			<p><button id="signup-button" class="button white">SIGN UP</button></p>
+		</form>
+	</div>
+</div>
+<div class="overlay" id="reservation-overlay">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20"/></a>
+	<div class="wrapper">
+		<form method="get" id="OT_form" action="http://www.opentable.com/restaurant-search.aspx" target="_blank">
+			<h3>Reservations</h3>
+			<p>
+				<select name="PartySize" id="PartySize" class="dropkick">
+				  <option disabled="disabled">Select Party Size</option>
+				  <option value="1">1 person</option>
+				  <option value="2">2 people</option>
+				  <option value="3">3 people</option>
+				  <option value="4">4 people</option>
+				  <option value="5">5 people</option>
+				  <option value="6">6 people</option>
+				  <option value="7">7 people</option>
+				  <option value="8">8+ people</option>
+				</select>
+			</p>
+			<p>
+				<input type="text" name="startDate" class="OT_searchDateField date-picker form-text" placeholder="Select Date" />
+			</p>
+			<p>
+				<select name="ResTime" id="ResTime" class="dropkick">
+				  <option disabled="disabled">Select Time</option>
+				  <option value="11:00 PM">11:00 PM</option>
+				  <option value="10:30 PM">10:30 PM</option>
+				  <option value="10:00 PM">10:00 PM</option>
+				  <option value="9:30 PM">9:30 PM</option>
+				  <option value="9:00 PM">9:00 PM</option>
+				  <option value="8:30 PM">8:30 PM</option>
+				  <option value="8:00 PM">8:00 PM</option>
+				  <option value="7:30 PM">7:30 PM</option>
+				  <option value="7:00 PM">7:00 PM</option>
+				  <option value="6:30 PM">6:30 PM</option>
+				  <option value="6:00 PM">6:00 PM</option>
+				  <option value="5:30 PM">5:30 PM</option>
+				  <option value="5:00 PM">5:00 PM</option>
+				  <option value="4:30 PM">4:30 PM</option>
+				  <option value="3:00 PM">3:00 PM</option>
+				  <option value="2:30 PM">2:30 PM</option>
+				  <option value="2:00 PM">2:00 PM</option>
+				  <option value="1:30 PM">1:30 PM</option>
+				  <option value="1:00 PM">1:00 PM</option>
+				  <option value="12:30 PM">12:30 PM</option>
+				  <option value="12:00 PM">12:00 PM</option>
+				  <option value="9:00 AM">9:00 AM</option>
+				  <option value="8:30 AM">8:30 AM</option>
+				  <option value="8:00 AM">8:00 AM</option>
+				  <option value="7:30 AM">7:30 AM</option>
+				  <option value="7:00 AM">7:00 AM</option>
+				</select>
+			</p>
+			<p><button class="button white">SUBMIT</button></p>
+			<input type="hidden" name="RestaurantID" id="RestaurantID" value="151027">
+			<input type="hidden" name="rid" id="rid" value="151027">
+			<input type="hidden" name="GeoID" id="GeoID" value="">
+			<input type="hidden" name="txtDateFormat" id="txtDateFormat" value="MM/dd/yyyy">
+			<input type="hidden" name="RestaurantReferralID" id="RestaurantReferralID" value="151027">
+		</form>
+	</div>
+</div>
+<div class="overlay" id="menu-overlay">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20"/></a>
+	<div class="wrapper">
+		<iframe id="menu-iframe"></iframe>
+	</div>
+</div>
+
+{% block footer_script %}{% endblock %}
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/dropkick.min.js"></script>
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery.backstretch.min.js"></script>
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery.plugin.min.js"></script>
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery.datepick.min.js"></script>
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/jquery.datepick.ext.min.js"></script>
+<script type='text/javascript' src="{{ ACCOUNT_STATIC_URL }}js/TweenMax.min.js"></script>
+<script type="text/javascript">
+(function($) {
+	function _beginAnimate() {
+		$('body').addClass('animating');
+	}
+	function _endAnimate(direction) {
+		$('body').removeClass('animating');
+		if(direction) {
+			$('#home').css('position', 'absolute');
+
+			if($('body').attr('data-goto') && $($('body').attr('data-goto')).length) {
+				$('html, body').stop().addClass('scrolling').animate({
+					scrollTop: $($('body').attr('data-goto')).offset().top
+				}, 500, function() { 
+					$('html, body').removeClass('scrolling'); 
+				});
+			} else {
+				$('html, body').stop().addClass('scrolling').animate({
+					scrollTop: $('#about').offset().top
+				}, 100, function() {
+					$('html, body').removeClass('scrolling'); 
+				});
+			}
+			$('body').attr('data-goto', '');
+		} else {
+			$('#home').css('position', 'fixed');
+			$('nav li').removeClass('active');
+			$('nav li a[href="#home"]').parent().addClass('active');
+		}
+	}
+	function isMobile() {
+		return ($(window).width() < 768);
+	}
+
+	var prev_scroll_top = $(window).scrollTop();
+	$(window).scroll(function(e) {
+		var scrolltop = $(window).scrollTop();
+
+		if($('body').is('.overlaid')) {
+			e.preventDefault();
+			$(window).scrollTop(prev_scroll_top);
+			return false;
+		}
+
+		if(!isMobile()) {
+			if($('body').hasClass('animating')) {
+				$(window).scrollTop(0);
+				return false;
+			}
+			if(scrolltop == 0 || prev_scroll_top == 0) {
+				if(scrolltop == 0) {
+					//document was scrolled to top
+					_beginAnimate();
+					setTimeout(function(){_endAnimate(false);}, 1200);
+					TweenMax.to($('#content'), .8, {css:{marginTop:$(window).height()+100}, ease:Quad.easeInOut});
+					TweenMax.to($('#content .bottom-glow'), .8, {css:{bottom:0-$(window).height()-100}});
+					TweenMax.to($('#left-nav'), .5, {css:{left:'-33%'}, ease:Quad.easeInOut}).delay(0.2);
+					TweenMax.to($('section.landing nav, section.landing #home-alert, section.landing .social-bar, section.landing .ludlow-logo'), .5, {css:{opacity:1}}).delay(.5);
+				}
+				if(prev_scroll_top == 0) {
+					//document is scrolling from top
+					_beginAnimate();
+					setTimeout(function(){_endAnimate(true);}, 1200);
+					TweenMax.to($('section.landing nav, section.landing #home-alert, section.landing .social-bar, section.landing .ludlow-logo'), .5, {css:{opacity:0}});
+					TweenMax.to($('#left-nav'), .5, {css:{left:0}, ease:Quad.easeInOut}).delay(0.4);
+					TweenMax.to($('#content'), .8, {css:{marginTop:0}, ease:Quad.easeInOut}).delay(0.4);
+					TweenMax.to($('#content .bottom-glow'), .8, {css:{bottom:0}}).delay(0.4);
+
+					prev_scroll_top = 1;
+				}
+			} else {
+				$('body').attr('data-goto', '');
+			}
+			prev_scroll_top = scrolltop;
+		} else {
+			if(scrolltop > 150) {
+				TweenMax.to($('nav .header-bar .mobile-logo'), .3, {css:{opacity:1}});
+				TweenMax.to($('nav .header-bar .address'), .3, {css:{opacity:0}});
+			} else {
+				TweenMax.to($('nav .header-bar .mobile-logo'), .3, {css:{opacity:0}});
+				TweenMax.to($('nav .header-bar .address'), .3, {css:{opacity:1}});
+			}
+		}
+
+		var tolerance = $(window).height() * 0.75;
+		var found = false;
+		$('#content section[id]').removeClass('active');
+		$('#content section[id]').each(function() {
+			if($(this).offset().top - tolerance < scrolltop && $(this).offset().top + $(this).height() + tolerance >= scrolltop + $(window).height()) {
+				$('nav li').removeClass('active');
+				$('nav li a[href="#' + $(this).attr('id') + '"]').parent().addClass('active');
+				found = true;
+			}
+			if (found) {
+				$(this).addClass('active');
+				return false;
+			}
+		});
+		if (found) {
+			var active_bg = $('#left-nav .background-wrapper .background.' + $('#content section[id].active').attr('id'));
+			if(active_bg.index() >= 0 && !isMobile()) {
+				$('#left-nav .background-wrapper .background:first-child').css('margin-top', 0 - active_bg.index() * $(window).height());
+			}
+		} else {
+			$('nav li').removeClass('active');
+		}
+	});
+	$(window).resize(function() {
+		$('section.landing').css('min-height', $(window).height());
+	});
+
+	$(document).ready(function($) {
+		if(!isMobile()) {
+
+			$(window).resize();
+
+			$('.menu-link').click(function(e) {
+				e.preventDefault();
+				window.location.hash = $(this).attr('data-fake-url');
+				$(this).trigger('fake_click');
+
+				var thisobj = $(this);
+				if(typeof(_gaq)!="undefined" && _gaq) {
+					_gaq.push(["_set", "title", thisobj.text()]);
+					_gaq.push(['_trackPageview', '/' + window.location.hash]);
+				}
+				return false;
+			}).on('fake_click', function(e) {
+				$('body').addClass('overlaid');
+				$('#menu-overlay #menu-iframe').height($(window).height() - 100).attr('src', $(this).attr('href'));
+				$('#menu-overlay').fadeIn(300);
+			});
+
+			window.onhashchange = function() {
+				var fake_path = window.location.hash.split('/');
+				$('body').attr('data-goto', fake_path[0]);
+				if(fake_path.length > 1) {
+					$('#' + fake_path[1]).trigger('fake_click');
+				}
+			}
+
+			if(window.location.hash) {
+				window.onhashchange();
+			}
+
+			if(prev_scroll_top > 0) {
+				//started to browsing middle of document
+				$('section.landing nav, section.landing #home-alert, section.landing .social-bar, section.landing .ludlow-logo').css('opacity',0);
+				$('#home').css('position', 'absolute');
+
+
+				$(window).scroll();
+			} else {
+				$('#left-nav').css('left', '-33%');
+				$('#content').css('margin-top', $(window).height()+100);
+				$('#content .bottom-glow').css('bottom', 0-$(window).height()-100);
+			}
+
+			$('nav#left-nav .background-wrapper .background').each(function() {
+				$(this).backstretch($(this).attr('data-image'));
+			});
+		}
+
+
+		$('a.scrollto').click(function(e) {
+			var thisobj = $(this);
+			if(isMobile()) {
+				$('nav .header-bar .mobile-nav-button').click();
+			}
+			if ($(thisobj.attr('href')).length)
+			{
+				$('html, body').stop().addClass('scrolling').animate({
+					scrollTop: $(thisobj.attr('href')).offset().top
+				}, 500, function() { 
+					$('html, body').removeClass('scrolling'); 
+					location.hash=$(thisobj.attr('href')).attr('id'); 
+					if(typeof(_gaq)!="undefined" && _gaq) {
+						_gaq.push(["_set", "title", thisobj.text()]);
+						_gaq.push(['_trackPageview', '/' + thisobj.get(0).hash]);
+					}
+				});
+			}
+			e.preventDefault();
+		});
+
+		{% for gallery in galleries %}{% if gallery.name == "Landing"%}
+			var image_list = [
+			{% for image in gallery.images.all %}
+				"{{ image.image_url }}"{% if not forloop.last %},{% endif %}
+			{% endfor %}
+			];
+			var randIndex = Math.floor(image_list.length * Math.random());
+			$('section.landing').backstretch(image_list[randIndex]);
+		{% endif %}{% endfor %}
+
+
+		$('#what_about').dropkick({
+			mobile:true,
+			change: function(e) {
+				$('#recipient').val($('#what_about option:selected').attr('data-recipient'));
+			}
+		});
+		$('select.dropkick').dropkick({
+			mobile: true
+		});
+		$('.date-picker').datepick({
+//			onDate: $.datepick.noWeekends,
+			renderer: $.datepick.themeRollerRenderer,
+			showAnim: 'fadeIn',
+			showSpeed: 'fast',
+//			minDate: +3,
+			onChangeMonthYear: function(year, month) { 
+				$('.ui-datepicker-calendar .ui-state-hover').removeClass('ui-state-hover');
+			},
+			onShow: function() {
+				$('.ui-datepicker-calendar .ui-state-hover').removeClass('ui-state-hover');
+			}
+		});
+
+		$('.close-overlay').click(function(e) {
+			e.preventDefault();
+			$(this).parent().css('opacity','').fadeOut(300);
+			$('#menu-overlay #menu-iframe').attr('src', '');
+			$('body').removeClass('overlaid');
+			return false;
+		});
+		$('.team-wrap .person').click(function(e) {
+			e.preventDefault();
+			$('body').addClass('overlaid');
+			$('#bio-overlay h3').text($('.name', this).text());
+			$('#bio-overlay .bio').html($('.bio', this).html());
+			if ($('.title', this).length) {
+				$('#bio-overlay .title').text($('.title', this).text()).show();
+			} else {
+				$('#bio-overlay .title').hide();
+			}
+			$('#bio-overlay').css({'display':'block','opacity':0});
+			$('#bio-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#bio-overlay .wrapper').height() - 50)/2);
+			TweenMax.to($('#bio-overlay'), .3, {css:{opacity:1}});
+			return false;
+		});
+		$('a[href="#gift-cards"]').click(function(e) {
+			e.preventDefault();
+			$('body').addClass('overlaid');
+			$('#bio-overlay h3').text('COMING SOON');
+			$('#bio-overlay .bio').html('');
+			$('#bio-overlay').css({'display':'block','opacity':0});
+			$('#bio-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#bio-overlay .wrapper').height() - 50)/2);
+			TweenMax.to($('#bio-overlay'), .3, {css:{opacity:1}});
+			return false;
+		});
+		$('.email-signup').click(function(e) {
+			e.preventDefault();
+			$('body').addClass('overlaid');
+			$('#signup-overlay').css({'display':'block','opacity':0});
+			$('#signup-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#signup-overlay .wrapper').height() - 50)/2);
+			TweenMax.to($('#signup-overlay'), .3, {css:{opacity:1}});
+			return false;
+		});
+		$('li.nav-reservations a').click(function(e) {
+			e.preventDefault();
+			$('body').addClass('overlaid');
+			$('#reservation-overlay').css({'display':'block','opacity':0});
+			$('#reservation-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#reservation-overlay .wrapper').height() - 50)/2);
+			TweenMax.to($('#reservation-overlay'), .3, {css:{opacity:1}});
+			return false;
+		});
+		$('#signup-form').submit(function(e) {
+			e.preventDefault();
+			if(!$(this).is(':invalid')) {
+				$.ajax({
+				  type: "POST",
+				  crossDomain: true,
+				  dataType: "script",
+				  url: $('#signup-form').attr('action'),
+				  data: $('#signup-form').serialize(),
+				  success: function(jqXHR, textStatus) {
+					$('#signup-form h3').text('Thank you for Subscribing to Us');
+					setTimeout(function() {$('#signup-overlay .close-overlay').click();}, 1000);
+					$('#signup-form p').hide();
+				  }
+				});
+			}
+			return false;
+		});
+		$('#private-events-form, #contact-form').submit(function(e) {
+			if(!$(this).is(':invalid')) {
+				var $thisform = $(this);
+				e.preventDefault();
+				$.ajax({
+				  type: "POST",
+				  url: '{% url 'form_to_email' %}',
+				  data: $thisform.serialize(),
+				  success: function(jqXHR, textStatus) {
+					$thisform.next('.thankyou').slideDown(100)
+					setTimeout(function() {$thisform.slideDown(300).next('.thankyou').slideUp(100);}, 5000);
+					if($('#signup:checked', $thisform).length) {
+						$('#signup-email').val($('input[type=email]', $thisform).val());
+						$('#signup-form').submit();
+					}
+				  }
+				});
+				return false;
+			}
+		});
+		$('nav .header-bar .mobile-nav-button').click(function(e) {
+			e.preventDefault();
+			$('nav .mobile-nav-wrap').slideToggle(150);
+			return false;
+		});
+	});
+})(jQuery);
+</script>
+<div class="clear"></div>
+</body>
+</html>
