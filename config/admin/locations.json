@@ -10,6 +10,11 @@
     "y_coordinate", 
     "short_name"
   ], 
+  "hide_sections": [
+    "hours", 
+    "image_gallery", 
+    "related_menu"
+  ], 
   "labels": {
     "phone_number": "Phone Number", 
     "display_hours": "Display Hours", 
@@ -23,12 +28,9 @@
     "additional_info": "Additional Info"
   }, 
   "sections": [
-    "address", 
     "display_hours", 
-    "hours", 
-    "image_gallery", 
     "additional_info", 
-    "related_menu"
+    "address"
   ], 
   "image_specs": {
     "address_image_specs": "JPG 952PX BY 349PX AT 72 DPI"

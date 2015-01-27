@@ -12,6 +12,10 @@
     "vine_link", 
     "pinterest_link"
   ], 
+  "hide_sections": [
+    "button", 
+    "social_links"
+  ], 
   "labels": {
     "bio": "Bio", 
     "twitter_link": "Twitter", 
@@ -27,8 +31,6 @@
   }, 
   "sections": [
     "bio", 
-    "button", 
-    "social_links", 
     "bio_image", 
     "title"
   ], 
