@@ -222,7 +222,7 @@
 			<div class="menu">
 				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep-top.png" width="189" height="34" class="block" />
 				<div class="caption-wrap">
-					<div class="caption"><a href="{{ menu.menu_image_url|default_if_none:menu.file_url }}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
+					<div class="caption"><a href="{{ menu.file_url }}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
 				</div>
 				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep.png" width="189" height="34" class="block" />
 			</div>
