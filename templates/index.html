@@ -18,7 +18,7 @@
 		<meta name="Revisit-After" content="5 Days">
 		<meta name="Distribution" content="Global">
 		<meta name="Rating" content="General">
-		<meta name="Copyright" content="© Dirty French 2014">	  
+		<meta name="Copyright" content="© Dirty French 2014">
 
 		<title>{% block title %}{{account.site_title}}{% endblock %}</title>
 
@@ -93,7 +93,7 @@
 			</div>
 		</nav>
 
-		<div class="landing-padder">		
+		<div class="landing-padder">
 			<div class="mobile-dirt-french show-mobile">
 				<img src="{{ ACCOUNT_STATIC_URL }}img/dirty-french-small.png" width="289" height="102" alt="Dirt French" class="block" />
 			</div>
@@ -222,7 +222,7 @@
 			<div class="menu">
 				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep-top.png" width="189" height="34" class="block" />
 				<div class="caption-wrap">
-					<div class="caption"><a href="{{menu.menu_image_url}}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
+					<div class="caption"><a href="{{ menu.menu_image_url|default_if_none:menu.file_url }}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
 				</div>
 				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep.png" width="189" height="34" class="block" />
 			</div>
@@ -495,14 +495,14 @@
 			if($('body').attr('data-goto') && $($('body').attr('data-goto')).length) {
 				$('html, body').stop().addClass('scrolling').animate({
 					scrollTop: $($('body').attr('data-goto')).offset().top
-				}, 500, function() { 
-					$('html, body').removeClass('scrolling'); 
+				}, 500, function() {
+					$('html, body').removeClass('scrolling');
 				});
 			} else {
 				$('html, body').stop().addClass('scrolling').animate({
 					scrollTop: $('#about').offset().top
 				}, 100, function() {
-					$('html, body').removeClass('scrolling'); 
+					$('html, body').removeClass('scrolling');
 				});
 			}
 			$('body').attr('data-goto', '');
@@ -655,9 +655,9 @@
 			{
 				$('html, body').stop().addClass('scrolling').animate({
 					scrollTop: $(thisobj.attr('href')).offset().top
-				}, 500, function() { 
-					$('html, body').removeClass('scrolling'); 
-					location.hash=$(thisobj.attr('href')).attr('id'); 
+				}, 500, function() {
+					$('html, body').removeClass('scrolling');
+					location.hash=$(thisobj.attr('href')).attr('id');
 					if(typeof(_gaq)!="undefined" && _gaq) {
 						_gaq.push(["_set", "title", thisobj.text()]);
 						_gaq.push(['_trackPageview', '/' + thisobj.get(0).hash]);
@@ -693,7 +693,7 @@
 			showAnim: 'fadeIn',
 			showSpeed: 'fast',
 //			minDate: +3,
-			onChangeMonthYear: function(year, month) { 
+			onChangeMonthYear: function(year, month) {
 				$('.ui-datepicker-calendar .ui-state-hover').removeClass('ui-state-hover');
 			},
 			onShow: function() {
