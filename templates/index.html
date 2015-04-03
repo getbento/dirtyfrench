@@ -242,7 +242,7 @@
 				<div class="wysiwyg">{{callouts.12.text|safe}}</div>
 			</div>
 			<div class="clear"></div>
-		</section><!-- private events -->
+		</section><!-- lobby-bar -->
 
 		<section id="private-events">
 			<h1 class="title">{{callouts.5.title}}</h1>
@@ -256,63 +256,10 @@
 			</div>
 			<div class="clear"></div>
 
-			<form action="{% url 'form_to_email' %}" method="post" id="private-events-form">
-				{% csrf_token %}
-				{% render_honeypot_field %}
-
-				<input type="hidden" name="recipient" id="recipient" value="events" />
-				<div class="field first-name clear">
-					<input type="text" name="First Name" id="first_name" required="required" class="form-text" placeholder="First Name*" />
-				</div>
-				<div class="field last-name">
-					<input type="text" name="Last Name" id="last_name" required="required" class="form-text" placeholder="Last Name*" />
-				</div>
-				<div class="field email clear">
-					<input type="email" name="Email" id="email-event" required="required" class="form-text" placeholder="Enter email*" />
-				</div>
-				<div class="field phone-number">
-					<input type="text" name="Phone Number" id="phone_number" required="required" class="form-text" placeholder="Phone Number*" />
-				</div>
-				<div class="field people-count clear">
-					<select name="How Many People" id="people_count" class="dropkick">
-						<option disabled="disabled" selected="selected">About how many people?</option>
-						<option>5</option>
-						<option>10</option>
-					</select>
-				</div>
-				<div class="field event-type">
-					<select name="Event Type" id="event_type" class="dropkick">
-						<option disabled="disabled" selected="selected">Type of Event</option>
-						<option>Event</option>
-					</select>
-				</div>
-				<div class="field clear">
-					<div class="field date clear">
-						<input type="text" name="Date" id="date" class="form-text date-picker" placeholder="Date" />
-					</div>
-					<div class="field time">
-						<select name="Time" id="time" class="dropkick">
-							<option disabled="disabled" selected="selected">Time</option>
-							<option>9am - 12pm</option>
-							<option>12pm - 4pm</option>
-							<option>4pm - 8pm</option>
-							<option>8pm - 11pm</option>
-						</select>
-					</div>
-				</div>
-				<div class="field message">
-					<textarea name="Additional Info" class="form-text" placeholder="Addtional information"></textarea>
-				</div>
-				<div class="field signup clear">
-					<input type="checkbox" name="Sign Up" id="signup" class="form-chkbox" checked="checked" />
-					<label for="signup" class="form-chkbox-label">Sign up for our mailing list</label>
-				</div>
-				<div class="field submit clear">
-					<button type="submit" id="submit_button" class="button">SUBMIT</button>
-				</div>
-				<div class="clear"></div>
-			</form>
-			<div class="thankyou">Thank you for contacting us! Someone will be in touch soon.</div>
+      <div class="form-wrap">
+        <script src="http://api.tripleseat.com/v1/leads/ts_script.js?lead_form_id=3188&public_key=3f4a4d0642c5a1773f23511af35f1309c91483b1"></script><a href="http://www.tripleseat.com" id="tripleseat_link">Private Event Software powered by Tripleseat</a>
+      </div>
+			
 		</section><!-- private events -->
 
 		<section id="press">

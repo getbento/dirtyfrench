@@ -372,6 +372,13 @@ form + .thankyou {font-size: 30px; font-family: 'peignot', sans-serif; display: 
 #bio-overlay {text-align: center; color: #fff; }
 .phone a {color: inherit; }
 
+#tripleseat_embed_form table {width:100%; table-layout: fixed; }
+#tripleseat_embed_form input, #tripleseat_embed_form textarea {box-sizing: border-box; border: 1px solid #4c4c4c !important; box-sizing: border-box; color: #2f2f2f; font-family: "Raleway",sans-serif; font-size: 16px; font-weight: normal; height: 55px; line-height: 55px; padding: 0 12px; width: 100%;}
+#tripleseat_embed_form textarea {height: 150px; line-height: 1.5; padding-bottom: 15px; padding-top: 15px; resize: none;}
+#tripleseat_embed_form input.hasDatepicker, #tripleseat_embed_form input.timeselect_input {padding-left: 25px; }
+#tripleseat_embed_form #lead_submit {max-width: 220px; font-family: "Raleway",sans-serif; font-size: 16px; font-weight: 900; color: #e93593;}
+#tripleseat_embed_form #lead_submit:hover {color: #fff; }
+
 /* @media all and (max-height : 710px) {
 	.dirt-french-logo, #content .bottom-glow {display: none !important; }
 	section.landing .social-bar {left: 50px; }
