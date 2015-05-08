@@ -320,7 +320,7 @@
 							<option data-recipient="beth">Press</option>
 							<option data-recipient="contact">Employment</option>
 							<option data-recipient="contact">General</option>
-							<option data-recipient="reservations">Reservations</option>
+							<option data-recipient="">Reservations</option>
 						</select>
 					</div>
 					<div class="field message clear">
@@ -719,17 +719,23 @@
 			if(!$(this).is(':invalid')) {
 				var $thisform = $(this);
 				e.preventDefault();
+        if (String.trim($('#recipient').val()) == "") {
+          $('#recipient').attr('name', '');
+        } else {
+          $('#recipient').attr('name', 'recipient');
+        }
+        form_data = $thisform.serialize();
 				$.ajax({
 				  type: "POST",
 				  url: '{% url 'form_to_email' %}',
-				  data: $thisform.serialize(),
+				  data: form_data,
 				  success: function(jqXHR, textStatus) {
-					$thisform.next('.thankyou').slideDown(100)
-					setTimeout(function() {$thisform.slideDown(300).next('.thankyou').slideUp(100);}, 5000);
-					if($('#signup:checked', $thisform).length) {
-						$('#signup-email').val($('input[type=email]', $thisform).val());
-						$('#signup-form').submit();
-					}
+            $thisform.next('.thankyou').slideDown(100)
+            setTimeout(function() {$thisform.slideDown(300).next('.thankyou').slideUp(100);}, 5000);
+            if($('#signup:checked', $thisform).length) {
+              $('#signup-email').val($('input[type=email]', $thisform).val());
+              $('#signup-form').submit();
+            }
 				  }
 				});
 				return false;
