@@ -379,6 +379,8 @@ form + .thankyou {font-size: 30px; font-family: 'peignot', sans-serif; display: 
 #tripleseat_embed_form #lead_submit {max-width: 220px; font-family: "Raleway",sans-serif; font-size: 16px; font-weight: 900; color: #e93593;}
 #tripleseat_embed_form #lead_submit:hover {color: #fff; }
 
+.datepick-popup #ui-datepicker-div {display: block !important; }
+
 /* @media all and (max-height : 710px) {
 	.dirt-french-logo, #content .bottom-glow {display: none !important; }
 	section.landing .social-bar {left: 50px; }
