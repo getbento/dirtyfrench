@@ -286,7 +286,7 @@ body {font-family: 'Raleway', sans-serif; }
 .wysiwyg * {font-family: 'Raleway', sans-serif !important;}
 .wysiwyg h1, .wysiwyg h1 * {font-family: 'biscotti', serif !important;}
 .wysiwyg h2, .wysiwyg h2 *, .wysiwyg h3, .wysiwyg h3 * {font-family: 'peignot', sans-serif !important;}
-.dirt-french-logo {position: fixed; z-index: 99; left: -28px; bottom: -49px; max-width: 839px; height: auto; width: 60%; }
+.dirt-french-logo {position: fixed;z-index: 99;left: 10px;bottom: 20px;height: auto;width: 240px;}
 section.landing {position: fixed; background: #777 !important; width: 100%; left: 0; top: 0; right: 0; bottom: 0;}
 section.landing nav {color: #fff; background: url(../img/nav-gradient.png) repeat-x left bottom; height: 200px; text-align: center;}
 section.landing nav .top-nav {display: inline-block; padding:10px 0; }
