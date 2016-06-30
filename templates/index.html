@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="{{ ACCOUNT_STATIC_URL }}css/style.css" />
 		<link rel="stylesheet" href="{{ ACCOUNT_STATIC_URL }}css/jquery.datepick.css" />
  		<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,800' rel='stylesheet' type='text/css'>
- 		<link rel="icon" href="{{ account.favicon_url }}" />  
+ 		<link rel="icon" href="{{ account.favicon_url }}" />
 
 		{% if account.ga_code %}
 		<script type="text/javascript">
@@ -260,7 +260,7 @@
       <div class="form-wrap">
         <script src="http://api.tripleseat.com/v1/leads/ts_script.js?lead_form_id=3188&public_key=3f4a4d0642c5a1773f23511af35f1309c91483b1"></script><a href="http://www.tripleseat.com" id="tripleseat_link">Private Event Software powered by Tripleseat</a>
       </div>
-			
+
 		</section><!-- private events -->
 
 		<section id="press">
@@ -289,12 +289,6 @@
 					<a href="#contact" style="text-decoration: underline; ">Contact Form</a>
 				</div>
 				<div class="wysiwyg">{{locations.0.display_hours|safe}}</div>
-
-				{% for nav in main_nav_items %}
-					{% if nav.template_key == "reservations" %}
-						<a href="{{nav.target}}" target="_blank" class="button" id="open-table-button">VIA OPEN TABLE</a>
-					{% endif %}
-				{% endfor %}
 
 			</div>
 			<div class="one-of-two last">
