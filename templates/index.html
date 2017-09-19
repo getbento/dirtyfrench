@@ -178,7 +178,9 @@
 		<section id="about">
 			<h1 class="title">{{callouts.1.title}}</h1>
 			<div class="one-of-two bottom-sep">
+				{% if callouts.2.title %}
 				<h3>{{callouts.2.title}}</h3>
+				{% endif %}
 				<div class="wysiwyg">{{callouts.2.text|safe}}</div>
 			</div>
 			<div class="one-of-two bottom-sep last">
@@ -235,7 +237,9 @@
 		<section id="lobby-bar">
 			<h1 class="title">{{callouts.10.title}}</h1>
 			<div class="one-of-two">
-				<h3>{{callouts.11.title}}</h3>
+				{% if callouts.11.title %}
+					<h3>{{callouts.11.title}}</h3>
+				{% endif %}
 				<div class="wysiwyg">{{callouts.11.text|safe}}</div>
 			</div>
 			<div class="one-of-two last">
@@ -248,7 +252,9 @@
 		<section id="private-events">
 			<h1 class="title">{{callouts.5.title}}</h1>
 			<div class="one-of-two">
+				{% if callouts.6.title %}
 				<h3>{{callouts.6.title}}</h3>
+				{% endif %}
 				<div class="wysiwyg">{{callouts.6.text|safe}}</div>
 			</div>
 			<div class="one-of-two last">
