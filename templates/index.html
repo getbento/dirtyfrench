@@ -633,6 +633,7 @@
 			];
 			var randIndex = Math.floor(image_list.length * Math.random());
 			$('section.landing').backstretch(image_list[randIndex]);
+			$('.landing .backstretch img').attr('alt', 'landing-background-image');
 		{% endif %}{% endfor %}
 
 
