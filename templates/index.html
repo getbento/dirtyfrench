@@ -314,13 +314,13 @@
 
 					<input type="hidden" name="recipient" id="recipient" value="info" />
 					<div class="field full-name clear">
-						<label for="full_name" aria-labelledby="full_name" form="full_name"><input type="text" name="Full Name" id="full_name" required="required" class="form-text" placeholder="Enter Full Name*" /></label>
+						<label for="full_name" class="hidden">Full Name</label><input type="text" name="Full Name" id="full_name" required="required" class="form-text" placeholder="Enter Full Name*" />
 					</div>
 					<div class="field email clear">
-						<label for="email-contact" aria-labelledby="email-contact" form="email-contact"><input type="email" name="Email" id="email-contact" required="required" class="form-text" placeholder="Enter email*" /></label>
+						<label for="email-contact" class="hidden">Email Contact</label><input type="email" name="Email" id="email-contact" required="required" class="form-text" placeholder="Enter email*" />
 					</div>
 					<div class="field what-about clear">
-						<label for="what_about" aria-labelledby="What are you getting in touch about" form="what_about">
+						<label for="what_about" class="hidden">What are you getting in touch about</label>
 							<select name="What are you getting in touch about" id="what_about" class="dropkick">
 								<option disabled="disabled" selected="selected">What are you getting in touch about</option>
 								<option data-recipient="beth">Press</option>
@@ -328,10 +328,9 @@
 								<option data-recipient="contact">General</option>
 								<option data-recipient="">Reservations</option>
 							</select>
-						</label>
 					</div>
 					<div class="field message clear">
-						<label for="contact-message" aria-labelledby="contact-message" form="contact-message"><textarea name="Message" id='contact-message' class="form-text" placeholder="Message*" required="required"></textarea></label>
+						<label for="contact-message" class='hidden'>Contact Message</label><textarea name="Message" id='contact-message' class="form-text" placeholder="Message*" required="required"></textarea>
 					</div>
 					<div class="field submit clear">
 						<button type="submit" id="submit_button" class="button">SUBMIT</button>
