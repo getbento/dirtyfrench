@@ -367,6 +367,7 @@
 		<form method="get" id="OT_form" action="https://www.opentable.com/restaurant-search.aspx" target="_blank">
 			<h3>Reservations</h3>
 			<p>
+				<label for="PartySize" class="hidden">Select Party Size</label>
 				<select name="PartySize" id="PartySize" class="dropkick">
 				  <option disabled="disabled">Select Party Size</option>
 				  <option value="1">1 person</option>
@@ -380,9 +381,11 @@
 				</select>
 			</p>
 			<p>
-				<input type="text" name="startDate" class="OT_searchDateField date-picker form-text" placeholder="Select Date" />
+				<label for="select-date" class="hidden">Select Date</label>
+				<input type="text" name="startDate" id="select-date" class="OT_searchDateField date-picker form-text" placeholder="Select Date" />
 			</p>
 			<p>
+				<label for="ResTime" class="hidden">Select Time</label>
 				<select name="ResTime" id="ResTime" class="dropkick">
 				  <option disabled="disabled">Select Time</option>
 				  <option value="11:00 PM">11:00 PM</option>
