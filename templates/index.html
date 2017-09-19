@@ -158,10 +158,10 @@
 			</ul>
 
 			<div class="address-phone">
-				<img src="{{ ACCOUNT_STATIC_URL }}img/left-nav-decor-top.png" width="135" height="28" />
+				<img src="{{ ACCOUNT_STATIC_URL }}img/left-nav-decor-top.png" width="135" height="28" alt='left-nav-decor-top' />
 				<div class="address">{{locations.0.short_name}}</div>
 				<div class="phone">{{locations.0.phone_number}}</div>
-				<img src="{{ ACCOUNT_STATIC_URL }}img/left-nav-decor-bottom.png" width="62" height="12" />
+				<img src="{{ ACCOUNT_STATIC_URL }}img/left-nav-decor-bottom.png" width="62" height="12" alt='left-nav-decor-bottom' />
 			</div>
 
 			<a href="http://ludlowhotel.com/" target="_blank"><img src="{{ ACCOUNT_STATIC_URL }}img/ludlow.png" width="122" height="35" alt="THE LUDLOW NEW YORK CITY" class="ludlow-logo" /></a>
@@ -224,11 +224,11 @@
 			<h1 class="title">{{callouts.4.title}}</h1>
 			{% for menu in menus %}
 			<div class="menu">
-				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep-top.png" width="189" height="34" class="block" />
+				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep-top.png" width="189" height="34" class="block" alt="content-sep-top" />
 				<div class="caption-wrap">
 					<div class="caption"><a href="{{ menu.file_url }}" target="_blank" class="menu-link" data-fake-url="#menus/{{menu.name|slugify}}" id="{{menu.name|slugify}}">{{menu.name}}</a></div>
 				</div>
-				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep.png" width="189" height="34" class="block" />
+				<img src="{{ ACCOUNT_STATIC_URL }}img/content-sep.png" width="189" height="34" class="block" alt="content-sep" />
 			</div>
 			{% endfor %}
 			<div class="clear"></div>
