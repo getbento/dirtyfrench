@@ -554,7 +554,7 @@ a:hover {
   text-decoration: underline;
 }
 a:focus {
-  outline: none;
+  outline: default;
 }
 
 .grayscale {
