@@ -361,8 +361,8 @@
 		</form>
 	</div>
 </div>
-<div class="overlay" id="reservation-overlay">
-	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20" alt="close"/></a>
+<div class="overlay" id="reservation-overlay" role="dialog">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20" alt="close" /></a>
 	<div class="wrapper">
 		<form method="get" id="OT_form" action="https://www.opentable.com/restaurant-search.aspx" target="_blank">
 			<h3>Reservations</h3>
@@ -660,11 +660,25 @@
 			}
 		});
 
+	var focusedElBeforeOpen;
+  var pressed = false;
+  $('body').on('keydown', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 9) {
+      pressed = true;
+    }
+  });
+
+
 		$('.close-overlay').click(function(e) {
 			e.preventDefault();
 			$(this).parent().css('opacity','').fadeOut(300);
 			$('#menu-overlay #menu-iframe').attr('src', '');
 			$('body').removeClass('overlaid');
+			if (pressed) {
+      focusedElBeforeOpen.focus();
+      pressed = false;
+    }
 			return false;
 		});
 		$('.team-wrap .person').click(function(e) {
@@ -702,10 +716,19 @@
 		});
 		$('li.nav-reservations a').click(function(e) {
 			e.preventDefault();
+			focusedElBeforeOpen = document.activeElement;
 			$('body').addClass('overlaid');
 			$('#reservation-overlay').css({'display':'block','opacity':0});
 			$('#reservation-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#reservation-overlay .wrapper').height() - 50)/2);
 			TweenMax.to($('#reservation-overlay'), .3, {css:{opacity:1}});
+
+			if(pressed){
+				var focusableEls = document.getElementById('reservation-overlay').querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]')
+				focusableEls = Array.prototype.slice.call(focusableEls);
+				var firstFocusableEl = focusableEls[0];
+				firstFocusableEl.focus();
+			}
+
 			return false;
 		});
 		$('#signup-form').submit(function(e) {
