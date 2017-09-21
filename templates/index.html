@@ -181,11 +181,18 @@
 				{% if callouts.2.title %}
 				<h3>{{callouts.2.title}}</h3>
 				{% endif %}
-				<div class="wysiwyg">{{callouts.2.text|safe}}</div>
+				<div class="wysiwyg">
+					{{callouts.2.text|safe}}
+					<br>
+					<br>
+					<p>Read more about our <a href="#anti-discrimination">Anti-Discrimination Policy</a></p>
+					</div>
 			</div>
 			<div class="one-of-two bottom-sep last">
 				<h3>{{callouts.3.title}}</h3>
-				<div class="wysiwyg">{{callouts.3.text|safe}}</div>
+				<div class="wysiwyg">
+					{{callouts.3.text|safe}}
+				</div>
 			</div>
 			<div class="clear"></div>
 
@@ -361,6 +368,17 @@
 		</form>
 	</div>
 </div>
+
+<div class="overlay" id="anti-discrimination-overlay">
+	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20" alt="close" /></a>
+	<div class="anti-discrimination-wrapper">
+			<h3>Anti-Discrimination Policy</h3>
+			<p>Major Food Group welcomes anyone who wants to work or dine at one of our restaurants and does not discriminate on the basis of an individual’s race, creed, color, religion, national origin, ethnicity, sex, sexual orientation, gender identity or expression, age, actual or perceived disability, veteran status, citizenship status, genetic information, military obligations, marital status and/or any other protected characteristic. The Company expressly prohibits any form of unlawful employee harassment based on any protected characteristic. Reasonable accommodations will be provided for religious practice, disability, pregnancy, childbirth, and related medical conditions, and for victims of domestic violence, sex offenses, and stalking.</p>
+			<p>The Company’s anti-discrimination policy applies to all terms and conditions of employment, including hiring, placement, training, compensation, internal promotions, discipline, performance evaluations, opportunities for advancement, terminations, layoff, recall, transfers, and leaves of absence. This policy also applies to outside vendors, organization members and customers, service clients, contractors and consultants, and dealings with the general public.</p>
+			<p>Please contact us if you require an accommodation or auxiliary aide and we will do our best to reasonably accommodate you.</p>
+	</div>
+</div>
+
 <div class="overlay" id="reservation-overlay" role="dialog">
 	<a href="#" class="close-overlay"><img src="{{ ACCOUNT_STATIC_URL }}img/close.png" width="21" height="20" alt="close" /></a>
 	<div class="wrapper">
@@ -660,6 +678,7 @@
 			}
 		});
 
+
 	var focusedElBeforeOpen;
   var pressed = false;
   $('body').on('keydown', function(e) {
@@ -731,6 +750,26 @@
 
 			return false;
 		});
+
+		$('#about a').click(function(e) {
+			console.log("click");
+			e.preventDefault();
+			focusedElBeforeOpen = document.activeElement;
+			$('body').addClass('overlaid');
+			$('#anti-discrimination-overlay').css({'display':'block','opacity':0});
+			$('#anti-discrimination-overlay .wrapper').css('padding-top', Math.max(0, $(window).height() - $('#anti-discrimination-overlay .wrapper').height() - 50)/2);
+			TweenMax.to($('#anti-discrimination-overlay'), .3, {css:{opacity:1}});
+
+			if(pressed){
+				var focusableEls = document.getElementById('anti-discrimination-overlay').querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]')
+				focusableEls = Array.prototype.slice.call(focusableEls);
+				var firstFocusableEl = focusableEls[0];
+				firstFocusableEl.focus();
+			}
+
+			return false;
+		});
+
 		$('#signup-form').submit(function(e) {
 			e.preventDefault();
 			if(!$(this).is(':invalid')) {

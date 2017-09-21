@@ -996,6 +996,13 @@ nav#left-nav .ludlow-logo {
   max-width: 600px;
   margin: auto;
 }
+
+.overlay .anti-discrimination-wrapper {
+  max-width: 600px;
+  margin-top: 10%;
+  margin-left: 20%;
+}
+
 .overlay .close-overlay {
   position: absolute;
   right: 40px;
@@ -1293,4 +1300,8 @@ form + .thankyou {
 
 .hidden {
   display: none;
+}
+
+#anti-discrimination-overlay p {
+  color: white;
 }
