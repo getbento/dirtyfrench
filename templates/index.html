@@ -330,10 +330,10 @@
 						<label for="what_about" class="hidden">What are you getting in touch about</label>
 							<select name="What are you getting in touch about" id="what_about" class="dropkick">
 								<option disabled="disabled" selected="selected">What are you getting in touch about</option>
-								<option data-recipient="beth">Press</option>
-								<option data-recipient="contact">Employment</option>
-								<option data-recipient="contact">General</option>
-								<option data-recipient="">Reservations</option>
+								<option data-recipient="reservations">Press</option>
+								<option data-recipient="reservations">Employment</option>
+								<option data-recipient="reservations">General</option>
+								<option data-recipient="reservations">Reservations</option>
 							</select>
 					</div>
 					<div class="field message clear">
@@ -792,7 +792,7 @@
 			if(!$(this).is(':invalid')) {
 				var $thisform = $(this);
 				e.preventDefault();
-        if (String.trim($('#recipient').val()) == "") {
+        if ($('#recipient').val().trim() == "") {
           $('#recipient').attr('name', '');
         } else {
           $('#recipient').attr('name', 'recipient');
